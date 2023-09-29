@@ -12,16 +12,16 @@ public class Bullet1_2 : MonoBehaviour
 
 	private void Start()
 	{
-		Object.Destroy(base.gameObject, DesTime);
+		Object.Destroy(gameObject, DesTime);
 	}
 
 	private void Update()
 	{
-		base.transform.position += base.transform.forward * speed * Time.deltaTime;
+		transform.position += transform.forward * speed * Time.deltaTime;
 	}
 
 	private void OnCollisionEnter(Collision collision)
 	{
-		Object.Instantiate(Flash, base.transform.position, base.transform.rotation);
+		Object.Instantiate(Flash, transform.position, transform.rotation);
 	}
 }

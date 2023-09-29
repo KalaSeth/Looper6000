@@ -6,7 +6,8 @@ public class CameraController : MonoBehaviour
 {
 	public static CameraController instance;
 
-	public Transform targetPoint;
+	public Transform[] targetPoint;
+	public int MountIndex;
 
 	public float moveSpeed = 8f;
 
@@ -19,11 +20,12 @@ public class CameraController : MonoBehaviour
 
 	private void Start()
 	{
+		MountIndex = PlayerPrefs.GetInt("PP", 0);
 	}
 
 	private void LateUpdate()
 	{
-		base.transform.position = Vector3.Lerp(base.transform.position, targetPoint.position, moveSpeed * Time.deltaTime);
-		base.transform.rotation = Quaternion.Lerp(base.transform.rotation, targetPoint.rotation, rotateSpeed * Time.deltaTime);
+		transform.position = Vector3.Lerp(transform.position, targetPoint[MountIndex].position, moveSpeed * Time.deltaTime);
+		transform.rotation = Quaternion.Lerp(transform.rotation, targetPoint[MountIndex].rotation, rotateSpeed * Time.deltaTime);
 	}
 }

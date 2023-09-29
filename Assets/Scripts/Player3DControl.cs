@@ -177,12 +177,12 @@ public class Player3DControl : MonoBehaviour
 	public void PlayerMover()
 	{
 		rollinput = Mathf.Lerp(rollinput, Input.GetAxisRaw("Roll"), RollAccleration * Time.deltaTime);
-		base.transform.Rotate((0f - mouseDistance.y) * lookRateSpeed * Time.deltaTime, mouseDistance.x * lookRateSpeed * Time.deltaTime, rollinput * rollSpeed * Time.deltaTime, Space.Self);
+		transform.Rotate((0f - mouseDistance.y) * lookRateSpeed * Time.deltaTime, mouseDistance.x * lookRateSpeed * Time.deltaTime, rollinput * rollSpeed * Time.deltaTime, Space.Self);
 		activeForwardSpeed = Mathf.Lerp(activeForwardSpeed, Input.GetAxisRaw("Vertical") * NewSpeed, forwardAccleration * Time.deltaTime);
 		activeStrafeSpeed = Mathf.Lerp(activeStrafeSpeed, Input.GetAxisRaw("Horizontal") * strafeSpeed, strafeAcceleration * Time.deltaTime);
 		activeHoverSpeed = Mathf.Lerp(activeHoverSpeed, Input.GetAxisRaw("Hover") * hoverSpeed, hoverAccleration * Time.deltaTime);
-		base.transform.position += base.transform.forward * activeForwardSpeed * Time.deltaTime;
-		base.transform.position += base.transform.right * activeStrafeSpeed * Time.deltaTime + base.transform.up * activeHoverSpeed * Time.deltaTime;
+		transform.position += transform.forward * activeForwardSpeed * Time.deltaTime;
+		transform.position += transform.right * activeStrafeSpeed * Time.deltaTime + transform.up * activeHoverSpeed * Time.deltaTime;
 	}
 
 	public void FireBullet()

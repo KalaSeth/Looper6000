@@ -8,6 +8,6 @@ public class DestroyerGuy : MonoBehaviour
 
 	private void Start()
 	{
-		Object.Destroy(base.gameObject, Dtime);
+		Object.Destroy(gameObject, Dtime);
 	}
 }

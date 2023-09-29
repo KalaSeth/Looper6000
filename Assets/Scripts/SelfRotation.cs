@@ -8,6 +8,6 @@ public class SelfRotation : MonoBehaviour
 
 	public void Update()
 	{
-		base.transform.Rotate(Vector3.up, Speed * Time.deltaTime);
+		transform.Rotate(Vector3.up, Speed * Time.deltaTime);
 	}
 }

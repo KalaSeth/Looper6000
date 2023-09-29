@@ -116,7 +116,7 @@ public class MeshDestroy : MonoBehaviour
 		{
 			DestroyMesh();
 		}
-		if (base.gameObject.tag == "Player")
+		if (gameObject.tag == "Player")
 		{
 			DestroyMesh();
 		}
@@ -157,9 +157,9 @@ public class MeshDestroy : MonoBehaviour
 		for (int l = 0; l < list.Count; l++)
 		{
 			list[l].MakeGameobject(this);
-			list[l].GameObject.GetComponent<Rigidbody>().AddForceAtPosition(list[l].Bounds.center * ExplodeForce, base.transform.position);
+			list[l].GameObject.GetComponent<Rigidbody>().AddForceAtPosition(list[l].Bounds.center * ExplodeForce, transform.position);
 		}
-		Object.Destroy(base.gameObject);
+		Object.Destroy(gameObject);
 	}
 
 	private PartMesh GenerateMesh(PartMesh original, Plane plane, bool left)
@@ -228,7 +228,7 @@ public class MeshDestroy : MonoBehaviour
 
 	private void OnCollisionEnter(Collision collision)
 	{
-		if (base.gameObject.tag != "Player")
+		if (gameObject.tag != "Player")
 		{
 			if (collision.gameObject.tag == "Bullet")
 			{
@@ -239,7 +239,7 @@ public class MeshDestroy : MonoBehaviour
 				GoBoom = true;
 			}
 		}
-		else if (base.gameObject.tag == "Player" && collision.gameObject.tag == "Objects")
+		else if (gameObject.tag == "Player" && collision.gameObject.tag == "Objects")
 		{
 			GameManager.instance.IsDead = true;
 			DestroyMesh();
@@ -248,9 +248,9 @@ public class MeshDestroy : MonoBehaviour
 
 	private void OnTriggerExit(Collider other)
 	{
-		if (base.gameObject.tag != "Player" && other.gameObject.tag == "Bound")
+		if (gameObject.tag != "Player" && other.gameObject.tag == "Bound")
 		{
-			Object.Destroy(base.gameObject);
+			Object.Destroy(gameObject);
 		}
 	}
 }

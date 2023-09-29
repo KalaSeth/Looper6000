@@ -27,7 +27,7 @@ public class WorldGeneratorx : MonoBehaviour
 				PickSpawnPoint();
 			}
 			objectsToPlace.Add(Object.Instantiate(asteroid, spawnPoint, Quaternion.Euler(Random.Range(0f, 360f), Random.Range(0f, 360f), Random.Range(0f, 360f))));
-			objectsToPlace[i].transform.parent = base.transform;
+			objectsToPlace[i].transform.parent = transform;
 		}
 		asteroid.SetActive(value: false);
 	}

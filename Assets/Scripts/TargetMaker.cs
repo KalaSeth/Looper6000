@@ -29,7 +29,7 @@ public class TargetMaker : MonoBehaviour
 
 	private void DeleteObjaftertime()
 	{
-		Object.Destroy(base.gameObject, 10f);
+		Object.Destroy(gameObject, 10f);
 	}
 
 	private void DeadEffects()
