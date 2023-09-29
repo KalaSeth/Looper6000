@@ -41,13 +41,14 @@ public class GameManager : MonoBehaviour
 	private void Start()
 	{
 		OutCam[0].enabled = true;
+		Camswitcher(0);
 		IsDead = false;
 		IsPaused = false;
 		ChallengeStart = false;
 		Health.maxValue = 100f;
 		Health.value = Player3DControl.instance.BodyHealth;
-		PauseMenu.SetActive(value: false);
-		CounterCh = 10f;
+		PauseMenu.SetActive(false);
+		CounterCh = 11f;
 	}
 
 	private void Update()
@@ -72,13 +73,13 @@ public class GameManager : MonoBehaviour
 			{
 				IsPaused = true;
 				LevelSwitcher.instance.PauseGame();
-				PauseMenu.SetActive(value: true);
+				PauseMenu.SetActive(true);
 			}
 			else if (IsPaused)
 			{
 				IsPaused = false;
 				LevelSwitcher.instance.ResumeGame();
-				PauseMenu.SetActive(value: false);
+				PauseMenu.SetActive(false);
 			}
 		}
 		if (Player3DControl.instance.BodyHealth <= 0f)
@@ -87,17 +88,17 @@ public class GameManager : MonoBehaviour
 		}
 		if (IsDead)
 		{
-			DeathHUD.SetActive(value: true);
+			DeathHUD.SetActive(true);
 			Cursor.visible = true;
 		}
 		if (!ChallengeStart)
 		{
 			return;
 		}
-		if (CounterCh <= 10f)
+		if (CounterCh <= 11f)
 		{
 			CounterCh -= Time.deltaTime;
-			ChallengeTimerText.text = "Timer " + (int)CounterCh;
+			ChallengeTimerText.text = (int)CounterCh + " sec left";
 			if (CounterCh <= 0f)
 			{
 				ChallengeStart = false;
@@ -108,7 +109,7 @@ public class GameManager : MonoBehaviour
 
 	public void ChallengeBegin()
 	{
-		ChallengeHUD.SetActive(value: true);
+		ChallengeHUD.SetActive(true);
 	}
 
 	private void Camswitcher(int Index)

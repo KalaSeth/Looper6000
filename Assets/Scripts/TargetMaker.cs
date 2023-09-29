@@ -15,7 +15,7 @@ public class TargetMaker : MonoBehaviour
 	{
 		IsDestroyed = false;
 		instance = this;
-		DestroyEffects.SetActive(value: false);
+		DestroyEffects.SetActive(false);
 	}
 
 	public void Update()
@@ -34,7 +34,7 @@ public class TargetMaker : MonoBehaviour
 
 	private void DeadEffects()
 	{
-		DestroyEffects.SetActive(value: true);
+		DestroyEffects.SetActive(true);
 	}
 
 	private void OnCollisionEnter(Collision collision)

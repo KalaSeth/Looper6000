@@ -151,15 +151,15 @@ public class Player3DControl : MonoBehaviour
 		}
 		if (BodyHealth <= 50f)
 		{
-			FireEffect1.SetActive(value: true);
+			FireEffect1.SetActive(true);
 		}
 		if (BodyHealth <= 30f)
 		{
-			FireEffect2.SetActive(value: true);
+			FireEffect2.SetActive(true);
 		}
 		if (BodyHealth <= 10f)
 		{
-			FireEffect3.SetActive(value: true);
+			FireEffect3.SetActive(true);
 		}
 		if (Input.GetMouseButtonDown(1))
 		{
