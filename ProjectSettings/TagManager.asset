@@ -9,6 +9,7 @@ TagManager:
   - Portal
   - Objects
   - Bound
+  - Bound2
   layers:
   - Default
   - TransparentFX

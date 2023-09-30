@@ -1,5 +1,6 @@
 // Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
 // GameManager
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,18 +9,17 @@ public class GameManager : MonoBehaviour
 	public static GameManager instance;
 
 	public Camera[] OutCam;
-
 	private int CamImdex;
 
 	public bool IsDead;
-
 	public bool IsPaused;
-
 	public bool ChallengeStart;
 
 	public GameObject ChallengeHUD;
-
 	public Text ChallengeTimerText;
+	public Text Quest;
+	[NonSerialized]
+	public string QuestText;
 
 	public float CounterCh;
 
@@ -110,6 +110,11 @@ public class GameManager : MonoBehaviour
 	public void ChallengeBegin()
 	{
 		ChallengeHUD.SetActive(true);
+	}
+
+	public void RandomQuestGen()
+	{
+		QuestText = "Destroy 10 Red Ball";
 	}
 
 	private void Camswitcher(int Index)

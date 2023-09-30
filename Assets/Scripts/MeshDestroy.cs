@@ -103,19 +103,8 @@ public class MeshDestroy : MonoBehaviour
 
 	public float ExplodeForce;
 
-	private bool GoBoom;
-
-	private void Start()
-	{
-		GoBoom = false;
-	}
-
 	private void Update()
 	{
-		if (GoBoom)
-		{
-			DestroyMesh();
-		}
 		if (gameObject.tag == "Player")
 		{
 			DestroyMesh();
@@ -232,12 +221,12 @@ public class MeshDestroy : MonoBehaviour
 		{
 			if (collision.gameObject.tag == "Bullet")
 			{
-				GoBoom = true;
+				DestroyMesh();
 			}
 			if (collision.gameObject.tag == "Missle")
 			{
-				GoBoom = true;
-			}
+                DestroyMesh();
+            }
 		}
 		else if (gameObject.tag == "Player" && collision.gameObject.tag == "Objects")
 		{
@@ -246,11 +235,19 @@ public class MeshDestroy : MonoBehaviour
 		}
 	}
 
-	private void OnTriggerExit(Collider other)
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.tag == "Bound2")
+		{
+			Destroy(gameObject);
+		}
+    }
+
+    private void OnTriggerExit(Collider other)
 	{
 		if (gameObject.tag != "Player" && other.gameObject.tag == "Bound")
 		{
-			Object.Destroy(gameObject);
+			Destroy(gameObject);
 		}
 	}
 }

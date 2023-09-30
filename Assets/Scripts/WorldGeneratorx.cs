@@ -19,6 +19,7 @@ public class WorldGeneratorx : MonoBehaviour
 
 	private void Start()
 	{
+
 		for (int i = 0; (float)i < amountToSpawn; i++)
 		{
 			PickSpawnPoint();
