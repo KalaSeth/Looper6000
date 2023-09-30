@@ -24,5 +24,6 @@ public class Bullet1_2 : MonoBehaviour
 	{
 		Instantiate(Flash, transform.position, transform.rotation);
 		Destroy(gameObject);
+
 	}
 }
