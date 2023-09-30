@@ -305,10 +305,12 @@ public class MeshDestroy : MonoBehaviour
         {
             if (collision.gameObject.tag == "Bullet")
             {
+                GameObject.Find("Die").GetComponent<AudioSource>().Play();
                 DestroyMesh();
             }
             if (collision.gameObject.tag == "Missle")
             {
+                GameObject.Find("Die").GetComponent<AudioSource>().Play();
                 DestroyMesh();
             }
         }

@@ -85,6 +85,10 @@ public class Player3DControl : MonoBehaviour
 
 	public Slider GunBMeter;
 
+	public AudioSource DeadSound;
+	public AudioSource ShootSound;
+	public AudioSource ShootSound2;
+
 	private void Awake()
 	{
 		instance = this;
@@ -187,6 +191,7 @@ public class Player3DControl : MonoBehaviour
 
 	public void FireBullet()
 	{
+		ShootSound.Play();
 		Object.Instantiate(Bullet, GunA.transform.position, GunA.transform.rotation);
 		Object.Instantiate(Bullet, GunB.transform.position, GunB.transform.rotation);
 		CanShootB = false;
@@ -195,6 +200,7 @@ public class Player3DControl : MonoBehaviour
 
 	public void FireMissile()
 	{
+		ShootSound2.Play();
 		Object.Instantiate(Missile, Gun1.transform.position, Gun1.transform.rotation);
 		Object.Instantiate(Missile, Gun2.transform.position, Gun2.transform.rotation);
 		CanShootM = false;
@@ -210,6 +216,7 @@ public class Player3DControl : MonoBehaviour
 		}
 		if (other.gameObject.tag == "Objects")
 		{
+			DeadSound.Play();
 			GameManager.instance.IsDead = true;
 			PlayerModel.GetComponent<MeshDestroy>().enabled = true;
 		}

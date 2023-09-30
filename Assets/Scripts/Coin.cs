@@ -7,6 +7,7 @@ public class Coin : MonoBehaviour
 	public Vector3 RotateAmmount;
 
 	private Animator CoinAnim;
+	public AudioSource CollectSound;
 
 	private void Start()
 	{
@@ -20,11 +21,12 @@ public class Coin : MonoBehaviour
 
 	private void DestroyCoin()
 	{
+		CollectSound.Play();
 		RotateAmmount = new Vector3(0f, 1000f, 0f);
 		CoinAnim.SetTrigger("Dead");
 		gameObject.GetComponent<BoxCollider>().enabled = false;
 		GameManager.instance.Coins += 1f;
-		Object.Destroy(gameObject, 0.12f);
+		Object.Destroy(gameObject, 1f);
 	}
 
 	private void OnCollisionEnter(Collision collision)
