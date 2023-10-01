@@ -240,8 +240,11 @@ public class Player3DControl : MonoBehaviour
 			other.GetComponentInParent<Portalthing>().AccessPortal();
 			GameManager.instance.ChallengeStart = true;
 			GameManager.instance.CounterCh = 11f;
-			
-		}
+			GameManager.instance.Loops++;
+			GameManager.instance.LoopText.fontSize = 85;
+
+
+        }
 		if (other.gameObject.tag == "Objects")
 		{
 			if(GameManager.instance.IsDead == false)

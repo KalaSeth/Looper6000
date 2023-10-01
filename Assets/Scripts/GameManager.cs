@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour
 	public Animator ChallengeAnim;
 	public AudioSource OutOfTimeAudio;
 
+	public Text LoopText;
+	public Text BestLoopText;
 	public int Loops;
 	public int BestLoops;
 	public int Kills;
@@ -65,8 +67,12 @@ public class GameManager : MonoBehaviour
 	{
 		Health.value = CounterCh;
 		CoinText.text = "Coins " + Coins;
-		if (ChallengeStart == false) { ChallengeTimerText.text = " "; }
-		else if (ChallengeStart == true) { ChallengeTimerText.text = ((int)CounterCh).ToString() + " sec"; }
+		LoopText.fontSize = (int)Mathf.Lerp(LoopText.fontSize, 45, 0.05f);
+
+		if (ChallengeStart == false) { LoopText.text =" "; ChallengeTimerText.text = " "; }
+		else if (ChallengeStart == true) {
+			LoopText.text = Loops.ToString() + "x";
+			ChallengeTimerText.text = ((int)CounterCh).ToString() + " sec"; }
 
 		if (Input.GetKeyDown(KeyCode.C))
 		{
@@ -116,6 +122,7 @@ public class GameManager : MonoBehaviour
 				ChallengeText.text = "Challenge Failed";
 				ChallengeAnim.SetTrigger("Go");
                 OutOfTimeAudio.Play();
+				Loops = 0;
 			}
 		}
 		ChallengeBegin();
