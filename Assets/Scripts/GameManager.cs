@@ -17,7 +17,14 @@ public class GameManager : MonoBehaviour
 
 	public GameObject ChallengeHUD;
 	public Text ChallengeTimerText;
+	public Text ChallengeText;
 	public Animator ChallengeAnim;
+	public AudioSource OutOfTimeAudio;
+
+	public int Loops;
+	public int BestLoops;
+	public int Kills;
+
 	public Text Quest;
 	[NonSerialized]
 	public string QuestText;
@@ -27,12 +34,11 @@ public class GameManager : MonoBehaviour
 	public GameObject DeathHUD;
 
 	public Slider Health;
-
 	public float Coins;
-
 	public Text CoinText;
 
 	public GameObject PauseMenu;
+	public GameObject HelpHUD;
 
 	public void Awake()
 	{
@@ -51,12 +57,17 @@ public class GameManager : MonoBehaviour
 		Health.maxValue = 11;
 		Health.value = CounterCh; //Player3DControl.instance.BodyHealth;
 		PauseMenu.SetActive(false);
+
+		BestLoops = PlayerPrefs.GetInt("BestLoop", 0);
 	}
 
 	private void Update()
 	{
 		Health.value = CounterCh;
 		CoinText.text = "Coins " + Coins;
+		if (ChallengeStart == false) { ChallengeTimerText.text = " "; }
+		else if (ChallengeStart == true) { ChallengeTimerText.text = ((int)CounterCh).ToString() + " sec"; }
+
 		if (Input.GetKeyDown(KeyCode.C))
 		{
 			if (CamImdex < OutCam.Length - 1)
@@ -102,13 +113,25 @@ public class GameManager : MonoBehaviour
 			if (CounterCh <= 0f)
 			{
 				ChallengeStart = false;
+				ChallengeText.text = "Challenge Failed";
+				ChallengeAnim.SetTrigger("Go");
+                OutOfTimeAudio.Play();
 			}
 		}
 		ChallengeBegin();
+
+		if (Loops >= BestLoops)
+		{
+			BestLoops = Loops;
+			PlayerPrefs.SetInt("BestLoop", BestLoops);
+		}
+
+
 	}
 
 	public void ResumeBut()
 	{
+		HelpHUD.SetActive(false);
         IsPaused = false;
         LevelSwitcher.instance.ResumeGame();
         PauseMenu.SetActive(false);

@@ -1,16 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MenuThing : MonoBehaviour
 {
     float Zdistance;
     bool back;
+
+    public Text BestL;
+    public Text Kill;
+
     // Start is called before the first frame update
     void Start()
     {
+        BestL.text = "Best Loops : " + PlayerPrefs.GetInt("BestLoop",0).ToString();
+        Kill.text = "Kills : " + PlayerPrefs.GetInt("Kills",0).ToString();
+
         Zdistance = -15;
         back = false;
+        Cursor.visible = true;
     }
 
     // Update is called once per frame

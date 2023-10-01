@@ -234,16 +234,24 @@ public class Player3DControl : MonoBehaviour
 			Portalsf.Play();
 			if (GameManager.instance.ChallengeStart == false)
 			{
-				GameManager.instance.ChallengeAnim.SetTrigger("Go");
+                GameManager.instance.ChallengeText.text = "Challenge Started";
+                GameManager.instance.ChallengeAnim.SetTrigger("Go");
 			}
+			other.GetComponentInParent<Portalthing>().AccessPortal();
 			GameManager.instance.ChallengeStart = true;
 			GameManager.instance.CounterCh = 11f;
+			
 		}
 		if (other.gameObject.tag == "Objects")
 		{
-			DeadSound.Play();
-			GameManager.instance.IsDead = true;
-			PlayerModel.GetComponent<MeshDestroy>().enabled = true;
+			if(GameManager.instance.IsDead == false)
+            {
+                DeadSound.Play();
+                DeadSound.Play();
+                GameManager.instance.IsDead = true;
+                PlayerModel.GetComponent<MeshDestroy>().enabled = true;
+            }
+			
 		}
 	}
 }

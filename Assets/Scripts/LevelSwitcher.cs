@@ -46,4 +46,9 @@ public class LevelSwitcher : MonoBehaviour
 	{
 		Application.Quit();
 	}
+
+	public void RateGame()
+	{
+		Application.OpenURL("https://black-boss.itch.io/looper-6000");
+	}
 }
