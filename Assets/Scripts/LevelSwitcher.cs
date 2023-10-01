@@ -37,7 +37,7 @@ public class LevelSwitcher : MonoBehaviour
 	}
 
 	public void ResumeGame()
-	{
+	{	
 		Cursor.visible = false;
 		Time.timeScale = 1f;
 	}

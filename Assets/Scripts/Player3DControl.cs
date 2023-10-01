@@ -92,6 +92,7 @@ public class Player3DControl : MonoBehaviour
 	public AudioSource DeadSound;
 	public AudioSource ShootSound;
 	public AudioSource ShootSound2;
+	public AudioSource Portalsf;
 
 	private void Awake()
 	{
@@ -230,8 +231,13 @@ public class Player3DControl : MonoBehaviour
 	{
 		if (other.gameObject.tag == "Portal")
 		{
+			Portalsf.Play();
+			if (GameManager.instance.ChallengeStart == false)
+			{
+				GameManager.instance.ChallengeAnim.SetTrigger("Go");
+			}
 			GameManager.instance.ChallengeStart = true;
-			GameManager.instance.CounterCh = 10f;
+			GameManager.instance.CounterCh = 11f;
 		}
 		if (other.gameObject.tag == "Objects")
 		{

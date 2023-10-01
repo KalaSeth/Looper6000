@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
 
 	public GameObject ChallengeHUD;
 	public Text ChallengeTimerText;
+	public Animator ChallengeAnim;
 	public Text Quest;
 	[NonSerialized]
 	public string QuestText;
@@ -44,16 +45,17 @@ public class GameManager : MonoBehaviour
 		Camswitcher(0);
 		IsDead = false;
 		IsPaused = false;
-		ChallengeStart = false;
-		Health.maxValue = 100f;
-		Health.value = Player3DControl.instance.BodyHealth;
+
+        CounterCh = 11f;
+        ChallengeStart = false;
+		Health.maxValue = 11;
+		Health.value = CounterCh; //Player3DControl.instance.BodyHealth;
 		PauseMenu.SetActive(false);
-		CounterCh = 11f;
 	}
 
 	private void Update()
 	{
-		Health.value = Player3DControl.instance.BodyHealth;
+		Health.value = CounterCh;
 		CoinText.text = "Coins " + Coins;
 		if (Input.GetKeyDown(KeyCode.C))
 		{
@@ -77,10 +79,8 @@ public class GameManager : MonoBehaviour
 			}
 			else if (IsPaused)
 			{
-				IsPaused = false;
-				LevelSwitcher.instance.ResumeGame();
-				PauseMenu.SetActive(false);
-			}
+				ResumeBut();
+            }
 		}
 		if (Player3DControl.instance.BodyHealth <= 0f)
 		{
@@ -98,7 +98,7 @@ public class GameManager : MonoBehaviour
 		if (CounterCh <= 11f)
 		{
 			CounterCh -= Time.deltaTime;
-			ChallengeTimerText.text = (int)CounterCh + " sec left";
+			
 			if (CounterCh <= 0f)
 			{
 				ChallengeStart = false;
@@ -106,6 +106,13 @@ public class GameManager : MonoBehaviour
 		}
 		ChallengeBegin();
 	}
+
+	public void ResumeBut()
+	{
+        IsPaused = false;
+        LevelSwitcher.instance.ResumeGame();
+        PauseMenu.SetActive(false);
+    }
 
 	public void ChallengeBegin()
 	{
