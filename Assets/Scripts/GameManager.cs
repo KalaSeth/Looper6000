@@ -68,8 +68,8 @@ public class GameManager : MonoBehaviour
 		Health.value = CounterCh;
 		CoinText.text = "Coins " + Coins;
 		LoopText.fontSize = (int)Mathf.Lerp(LoopText.fontSize, 45, 0.05f);
-
-		if (ChallengeStart == false) { LoopText.text =" "; ChallengeTimerText.text = " "; }
+		BestLoopText.text = BestLoops.ToString();
+		if (ChallengeStart == false) { LoopText.text ="0x"; ChallengeTimerText.text = " "; }
 		else if (ChallengeStart == true) {
 			LoopText.text = Loops.ToString() + "x";
 			ChallengeTimerText.text = ((int)CounterCh).ToString() + " sec"; }
@@ -90,8 +90,8 @@ public class GameManager : MonoBehaviour
 		{
 			if (!IsPaused)
 			{
-				IsPaused = true;
-				LevelSwitcher.instance.PauseGame();
+				IsPaused = true; Player3DControl.instance.ShipSound.Stop();
+                LevelSwitcher.instance.PauseGame();
 				PauseMenu.SetActive(true);
 			}
 			else if (IsPaused)
@@ -112,7 +112,7 @@ public class GameManager : MonoBehaviour
 		{
 			return;
 		}
-		if (CounterCh <= 11f)
+		if (CounterCh <= 11f && IsDead != true)
 		{
 			CounterCh -= Time.deltaTime;
 			
@@ -138,7 +138,8 @@ public class GameManager : MonoBehaviour
 
 	public void ResumeBut()
 	{
-		HelpHUD.SetActive(false);
+        Player3DControl.instance.ShipSound.Play();
+        HelpHUD.SetActive(false);
         IsPaused = false;
         LevelSwitcher.instance.ResumeGame();
         PauseMenu.SetActive(false);
@@ -151,7 +152,12 @@ public class GameManager : MonoBehaviour
 
 	public void RandomQuestGen()
 	{
-		QuestText = "Destroy 10 Red Ball";
+		QuestText = "Pass throug 3 Portal before juice runs out!";
+		QuestText = "Collect 4 Coins before juice runs out!";
+		QuestText = "Destroy 2 Red Ball before Portal Juice runs out.";
+		QuestText = "Destroy 10 Red Ball before Portal Juice runs out.";
+		QuestText = "Destroy 10 Red Ball before Portal Juice runs out.";
+		QuestText = "Destroy 10 Red Ball before Portal Juice runs out.";
 	}
 
 	private void Camswitcher(int Index)

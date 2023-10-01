@@ -87,8 +87,8 @@ public class Player3DControl : MonoBehaviour
 
 	public AudioSource ShipSound;
 	float CurrentPitch = 0.74f; // NoShift
-	float NewPitch = 0.93f;		// Shift
-	float NoPitch = 0.41f;		// idle
+	float NewPitch = 0.93f;     // Shift
+	float NoPitch = 0.41f;      // idle
 	public AudioSource DeadSound;
 	public AudioSource ShootSound;
 	public AudioSource ShootSound2;
@@ -137,23 +137,24 @@ public class Player3DControl : MonoBehaviour
 				NewSpeed = forwardSpeed * 3f;
 			}
 			else if (Input.GetKeyUp(KeyCode.LeftShift))
-            {
-                NewSpeed = forwardSpeed;
+			{
+				NewSpeed = forwardSpeed;
 			}
 			PlayerMover();
 
+
 			if (Input.GetAxisRaw("Horizontal") == 0f && Input.GetAxisRaw("Vertical") == 0f)
 			{
-                ShipSound.pitch = Mathf.Lerp(ShipSound.pitch, NoPitch, 0.1f);
-            }
-            else if (Input.GetKey(KeyCode.LeftShift))
-            {
-                ShipSound.pitch = Mathf.Lerp(ShipSound.pitch, NewPitch, 0.1f);
-            }
-            else { ShipSound.pitch = Mathf.Lerp(ShipSound.pitch, CurrentPitch, 0.1f); }
-        }
+				ShipSound.pitch = Mathf.Lerp(ShipSound.pitch, NoPitch, 0.1f);
+			}
+			else if (Input.GetKey(KeyCode.LeftShift))
+			{
+				ShipSound.pitch = Mathf.Lerp(ShipSound.pitch, NewPitch, 0.1f);
+			}
+			else { ShipSound.pitch = Mathf.Lerp(ShipSound.pitch, CurrentPitch, 0.1f); }
+		} else if (GameManager.instance.IsDead == true) ShipSound.volume = 0f;
 
-		Gun1Meter.value = CounterB;
+        Gun1Meter.value = CounterB;
 		Gun2Meter.value = CounterB;
 		GunAMeter.value = CounterM;
 		GunBMeter.value = CounterM;
