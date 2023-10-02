@@ -27,7 +27,8 @@ public class Coin : MonoBehaviour
 		gameObject.GetComponent<BoxCollider>().enabled = false;
 		GameManager.instance.Coins += 1f;
 		GameManager.instance.Qcoins++;
-		Destroy(gameObject, 1f);
+        GameManager.instance.Coinup.SetTrigger("Go");
+        Destroy(gameObject, 1f);
 	}
 
 	private void OnCollisionEnter(Collision collision)

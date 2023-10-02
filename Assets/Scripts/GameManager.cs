@@ -34,6 +34,9 @@ public class GameManager : MonoBehaviour
 	public int Loops;
 	public int BestLoops;
 	public int Kills;
+	public Text KillText;
+	public Animator KillUP;
+	public int Qkill;
 
 	public Text Quest;
 	public Text TaskLeft;
@@ -53,6 +56,7 @@ public class GameManager : MonoBehaviour
 	public Slider Health;
 	public float Coins;
 	public Text CoinText;
+	public Animator Coinup;
 
 	public GameObject PauseMenu;
 	public GameObject HelpHUD;
@@ -70,7 +74,9 @@ public class GameManager : MonoBehaviour
 	{
 		PlayerLevel = PlayerPrefs.GetInt("Level",1);
 		TaskAmmount = PlayerPrefs.GetInt("TaskAm",4);
-		TaskIndex = PlayerPrefs.GetInt("TaskIn", 0);
+		Kills = PlayerPrefs.GetInt("Kills", 0);
+
+        TaskIndex = PlayerPrefs.GetInt("TaskIn", 0);
 		Tutorial1 = PlayerPrefs.GetInt("Tut1", 0);
 		Tutorial2 = PlayerPrefs.GetInt("Tut2", 0);
 		Tutorial3 = PlayerPrefs.GetInt("Tut3", 0);
@@ -106,6 +112,7 @@ public class GameManager : MonoBehaviour
 		Leveltext.text = PlayerLevel.ToString();
         Health.value = CounterCh;
 		CoinText.text = "x" + Coins.ToString();
+		KillText.text = "x" + Kills.ToString();
         Quest.text = QuestText;
         XpSlider.maxValue = 100 * PlayerLevel;
         XpSlider.value = XP;
@@ -178,6 +185,7 @@ public class GameManager : MonoBehaviour
 				Loops = 0;
 				Qloop = 0;
 				Qcoins = 0;
+				Qkill = 0;
 			}
 		}
 
@@ -239,11 +247,15 @@ public class GameManager : MonoBehaviour
                 QuestComplete = true;
             }
             TaskLeft.text = (TaskAmmount - Qcoins).ToString() + "/" + TaskAmmount.ToString() + " left";
-			Debug.Log(Qcoins);
         }
 		else if (TaskIndex == 2) { QuestText = "Destroy " + TaskAmmount.ToString() + " Red Base before juice runs out!";
-
-		}
+            if (Qkill >= TaskAmmount)
+            {
+                Qkill = 0;
+                QuestComplete = true;
+            }
+            TaskLeft.text = (TaskAmmount - Qkill).ToString() + "/" + TaskAmmount.ToString() + " left";
+        }
 		else if (TaskIndex == 3) { QuestText = "Kill " + TaskAmmount.ToString() + " Enemies before juice runs out!";
 
 		}
@@ -253,8 +265,8 @@ public class GameManager : MonoBehaviour
 
 	public void RandomQuestGen()
 	{
-        int Xgroup = 1; // Random.Range(0, 3);
-		int XAmmount = Random.Range(4, PlayerLevel + 10);
+		int Xgroup = 2;// Random.Range(0, 2);
+		int XAmmount = Random.Range(4,11);
 
 		if (Xgroup == 0) // Pass Loops	
 		{

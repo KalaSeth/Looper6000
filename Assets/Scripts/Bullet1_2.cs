@@ -23,6 +23,15 @@ public class Bullet1_2 : MonoBehaviour
 	private void OnCollisionEnter(Collision collision)
 	{
 		Instantiate(Flash, transform.position, transform.rotation);
+		if (collision.gameObject.tag == "Objects")
+		{
+			if (GameManager.instance.ChallengeStart == true)
+			{
+				GameManager.instance.Qkill++;
+			}
+			GameManager.instance.Kills++;
+			GameManager.instance.KillUP.SetTrigger("Go");
+		}
 		Destroy(gameObject);
 
 	}
