@@ -7,7 +7,7 @@ public class Player3DControl : MonoBehaviour
 {
 	public static Player3DControl instance;
 
-	public GameObject PlayerModel;
+	public GameObject[] PlayerModel;
 
 	public float forwardSpeed;
 
@@ -94,14 +94,23 @@ public class Player3DControl : MonoBehaviour
 	public AudioSource ShootSound2;
 	public AudioSource Portalsf;
 
+	public Transform[] TPS;
+	public Transform[] Cockpit;
+	public Transform[] TOP;
+	public Transform[] BackCam;
+	public int PlayerIndex;
+
 	private void Awake()
 	{
 		instance = this;
 	}
 
-	private void Start()
+	public void Start()
 	{
-		screenCenter.x = (float)Screen.width * 0.5f;
+		PlayerIndex = PlayerPrefs.GetInt("Chip",0);
+		PlayerModel[PlayerIndex].SetActive(true);
+
+        screenCenter.x = (float)Screen.width * 0.5f;
 		screenCenter.y = (float)Screen.height * 0.5f;
 		Cursor.lockState = CursorLockMode.Confined;
 		Cursor.visible = false;
@@ -216,8 +225,8 @@ public class Player3DControl : MonoBehaviour
 	public void FireBullet()
 	{
 		ShootSound.Play();
-		Object.Instantiate(Bullet, GunA.transform.position, GunA.transform.rotation);
-		Object.Instantiate(Bullet, GunB.transform.position, GunB.transform.rotation);
+		Instantiate(Bullet, GunA.transform.position, GunA.transform.rotation);
+		Instantiate(Bullet, GunB.transform.position, GunB.transform.rotation);
 		CanShootB = false;
 		CounterB = GunBCooldown;
 	}
@@ -225,8 +234,8 @@ public class Player3DControl : MonoBehaviour
 	public void FireMissile()
 	{
 		ShootSound2.Play();
-		Object.Instantiate(Missile, Gun1.transform.position, Gun1.transform.rotation);
-		Object.Instantiate(Missile, Gun2.transform.position, Gun2.transform.rotation);
+		Instantiate(Missile, Gun1.transform.position, Gun1.transform.rotation);
+		Instantiate(Missile, Gun2.transform.position, Gun2.transform.rotation);
 		CanShootM = false;
 		CounterM = GunMCooldown;
 	}
@@ -260,7 +269,7 @@ public class Player3DControl : MonoBehaviour
                 DeadSound.Play();
                 GameManager.instance.DeadText.text = "-You Crashed-";
                 GameManager.instance.IsDead = true;
-                PlayerModel.GetComponent<MeshDestroy>().enabled = true;
+				PlayerModel[PlayerIndex].GetComponent<MeshDestroy>().enabled = true;
             }
 			
 		}

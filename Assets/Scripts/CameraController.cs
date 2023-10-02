@@ -6,7 +6,7 @@ public class CameraController : MonoBehaviour
 {
 	public static CameraController instance;
 
-	public Transform targetPoint;
+    Transform targetPoint;
 
 	public float moveSpeed = 8f;
 
@@ -19,7 +19,7 @@ public class CameraController : MonoBehaviour
 
 	private void Start()
 	{
-		//MountIndex = PlayerPrefs.GetInt("PP", 0);
+		targetPoint = Player3DControl.instance.TPS[Player3DControl.instance.PlayerIndex];
 	}
 
 	private void LateUpdate()

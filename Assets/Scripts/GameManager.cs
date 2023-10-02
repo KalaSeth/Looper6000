@@ -1,6 +1,7 @@
 // Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
 // GameManager
 
+using System.Net.NetworkInformation;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,6 +10,7 @@ public class GameManager : MonoBehaviour
 	public static GameManager instance;
 
 	public Camera[] OutCam;
+	public Transform[] CamSer; 
 	private int CamImdex;
 
 	public int PlayerLevel;
@@ -77,7 +79,11 @@ public class GameManager : MonoBehaviour
 		PlayerLevel = PlayerPrefs.GetInt("Level",1);
 		TaskAmmount = PlayerPrefs.GetInt("TaskAm",4);
 		MainKill = PlayerPrefs.GetInt("Kills", 0);
+
 		Kills = 0;
+        CamSer[0] = Player3DControl.instance.Cockpit[Player3DControl.instance.PlayerIndex];
+        CamSer[1] = Player3DControl.instance.TOP[Player3DControl.instance.PlayerIndex];
+        CamSer[2] = Player3DControl.instance.BackCam[Player3DControl.instance.PlayerIndex];
 
         TaskIndex = PlayerPrefs.GetInt("TaskIn", 0);
 		Tutorial1 = PlayerPrefs.GetInt("Tut1", 0);
