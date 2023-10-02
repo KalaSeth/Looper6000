@@ -152,7 +152,10 @@ public class Player3DControl : MonoBehaviour
 				ShipSound.pitch = Mathf.Lerp(ShipSound.pitch, NewPitch, 0.1f);
 			}
 			else { ShipSound.pitch = Mathf.Lerp(ShipSound.pitch, CurrentPitch, 0.1f); }
-		} else if (GameManager.instance.IsDead == true) ShipSound.volume = 0f;
+		}
+		else if (GameManager.instance.IsDead == true) {
+			gameObject.GetComponent<BoxCollider>().enabled = false;
+				ShipSound.volume = 0f; }
 
         Gun1Meter.value = CounterB;
 		Gun2Meter.value = CounterB;
@@ -235,13 +238,16 @@ public class Player3DControl : MonoBehaviour
 			Portalsf.Play();
 			if (GameManager.instance.ChallengeStart == false)
 			{
+				GameManager.instance.ChallengeText.color = new Color32(167, 221, 229, 255);
                 GameManager.instance.ChallengeText.text = "Challenge Started";
                 GameManager.instance.ChallengeAnim.SetTrigger("Go");
-			}
+                GameManager.instance.ChallengeBaseAnim.SetTrigger("Go");
+            }
 			other.GetComponentInParent<Portalthing>().AccessPortal();
 			GameManager.instance.ChallengeStart = true;
 			GameManager.instance.CounterCh = 11f;
 			GameManager.instance.Loops++;
+			GameManager.instance.Qloop++;
 			GameManager.instance.LoopText.fontSize = 85;
 
 

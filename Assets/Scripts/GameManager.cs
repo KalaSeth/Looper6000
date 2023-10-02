@@ -1,6 +1,6 @@
 // Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
 // GameManager
-using System;
+
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +11,13 @@ public class GameManager : MonoBehaviour
 	public Camera[] OutCam;
 	private int CamImdex;
 
+	public int PlayerLevel;
+	public Text Leveltext;
+	public Animator Levelup;
+	public int XP;
+	public Slider XpSlider;
+	public Animator XPup;
+
 	public bool IsDead;
 	public bool IsPaused;
 	public bool ChallengeStart;
@@ -19,6 +26,7 @@ public class GameManager : MonoBehaviour
 	public Text ChallengeTimerText;
 	public Text ChallengeText;
 	public Animator ChallengeAnim;
+	public Animator ChallengeBaseAnim;
 	public AudioSource OutOfTimeAudio;
 
 	public Text LoopText;
@@ -28,8 +36,15 @@ public class GameManager : MonoBehaviour
 	public int Kills;
 
 	public Text Quest;
-	[NonSerialized]
+	public Text TaskLeft;
+	[System.NonSerialized]
 	public string QuestText;
+	public bool QuestComplete;
+	public float TaskAmmount;
+	int TaskIndex; // 0 = loops; 1 = coins; 2 = balls; 3 = enemy;
+	public int Qloop = 0;
+	public int Qcoins = 0;
+
 
 	public float CounterCh;
 
@@ -42,17 +57,34 @@ public class GameManager : MonoBehaviour
 	public GameObject PauseMenu;
 	public GameObject HelpHUD;
 
+	public int Tutorial1;
+	public int Tutorial2;
+	public int Tutorial3;
+
 	public void Awake()
 	{
 		instance = this;
 	}
 
-	private void Start()
+	public void Start()
 	{
+		PlayerLevel = PlayerPrefs.GetInt("Level",1);
+		TaskAmmount = PlayerPrefs.GetInt("TaskAm",4);
+		TaskIndex = PlayerPrefs.GetInt("TaskIn", 0);
+		Tutorial1 = PlayerPrefs.GetInt("Tut1", 0);
+		Tutorial2 = PlayerPrefs.GetInt("Tut2", 0);
+		Tutorial3 = PlayerPrefs.GetInt("Tut3", 0);
+
+		XpSlider.maxValue = 100 * PlayerLevel + (PlayerLevel / 2);
+        XP = PlayerPrefs.GetInt("xp", 0);
+        XpSlider.value =  XP;
+		
+
 		OutCam[0].enabled = true;
 		Camswitcher(0);
 		IsDead = false;
 		IsPaused = false;
+		QuestComplete = false;
 
         CounterCh = 11f;
         ChallengeStart = false;
@@ -60,14 +92,33 @@ public class GameManager : MonoBehaviour
 		Health.value = CounterCh; //Player3DControl.instance.BodyHealth;
 		PauseMenu.SetActive(false);
 
-		BestLoops = PlayerPrefs.GetInt("BestLoop", 0);
-	}
+		QuestChecker();
 
-	private void Update()
+		BestLoops = PlayerPrefs.GetInt("BestLoop", 0);
+    }
+
+	public void Update()
 	{
-		Health.value = CounterCh;
-		CoinText.text = "Coins " + Coins;
+        PlayerLevel = PlayerPrefs.GetInt("Level", 1);
+        TaskAmmount = PlayerPrefs.GetInt("TaskAm", 4);
+        TaskIndex = PlayerPrefs.GetInt("TaskIn", 0);
+
+		Leveltext.text = PlayerLevel.ToString();
+        Health.value = CounterCh;
+		CoinText.text = "x" + Coins.ToString();
+        Quest.text = QuestText;
+        XpSlider.maxValue = 100 * PlayerLevel;
+        XpSlider.value = XP;
+		if (XpSlider.value == XpSlider.maxValue) {
+			Levelup.SetTrigger("Go");
+            PlayerLevel++; PlayerPrefs.SetInt("Level", PlayerLevel);
+			XP = 0; PlayerPrefs.SetInt("xp", XP);
+		}
+
+
+
 		LoopText.fontSize = (int)Mathf.Lerp(LoopText.fontSize, 45, 0.05f);
+
 		BestLoopText.text = BestLoops.ToString();
 		if (ChallengeStart == false) { LoopText.text ="0x"; ChallengeTimerText.text = " "; }
 		else if (ChallengeStart == true) {
@@ -118,16 +169,22 @@ public class GameManager : MonoBehaviour
 			
 			if (CounterCh <= 0f)
 			{
-				ChallengeStart = false;
+				ChallengeText.color = new Color32(255, 66, 55, 255);
+                ChallengeStart = false;
 				ChallengeText.text = "Challenge Failed";
 				ChallengeAnim.SetTrigger("Go");
+				ChallengeBaseAnim.SetTrigger("Go");
                 OutOfTimeAudio.Play();
 				Loops = 0;
+				Qloop = 0;
+				Qcoins = 0;
 			}
 		}
-		ChallengeBegin();
 
-		if (Loops >= BestLoops)
+		ChallengeBegin();
+		QuestChecker();
+		
+        if (Loops >= BestLoops)
 		{
 			BestLoops = Loops;
 			PlayerPrefs.SetInt("BestLoop", BestLoops);
@@ -148,17 +205,88 @@ public class GameManager : MonoBehaviour
 	public void ChallengeBegin()
 	{
 		ChallengeHUD.SetActive(true);
+
 	}
+
+	public void QuestChecker()
+	{
+		if (QuestComplete == true)
+		{
+			ChallengeText.color = new Color32(112, 236, 143, 255);
+            ChallengeText.text = "Challenge Completed";
+            ChallengeBaseAnim.SetTrigger("Go");
+            ChallengeAnim.SetTrigger("Go");
+            XP += 30 * Random.Range( PlayerLevel, PlayerLevel * 2);
+			XPup.GetComponent<Text>().text = XP.ToString() + "xp+";
+			XPup.SetTrigger("Go");
+            PlayerPrefs.SetInt("xp", XP);
+			Debug.Log(XP);
+
+			RandomQuestGen();
+		}
+		if (TaskIndex == 0) { QuestText = "Pass throug " + TaskAmmount.ToString() + " Portal before juice runs out!";
+		   if (Qloop >= TaskAmmount)
+			{
+				Qloop = 0;
+				QuestComplete = true;
+			}
+			TaskLeft.text = (TaskAmmount - Qloop).ToString() + "/" + TaskAmmount.ToString() + " left";
+		}
+		else if (TaskIndex == 1) { QuestText = "Destroy " + TaskAmmount.ToString() + " Coins before juice runs out!";
+            if (Qcoins >= TaskAmmount)
+            {
+				Qcoins = 0;
+                QuestComplete = true;
+            }
+            TaskLeft.text = (TaskAmmount - Qcoins).ToString() + "/" + TaskAmmount.ToString() + " left";
+			Debug.Log(Qcoins);
+        }
+		else if (TaskIndex == 2) { QuestText = "Destroy " + TaskAmmount.ToString() + " Red Base before juice runs out!";
+
+		}
+		else if (TaskIndex == 3) { QuestText = "Kill " + TaskAmmount.ToString() + " Enemies before juice runs out!";
+
+		}
+
+	}
+
 
 	public void RandomQuestGen()
 	{
-		QuestText = "Pass throug 3 Portal before juice runs out!";
-		QuestText = "Collect 4 Coins before juice runs out!";
-		QuestText = "Destroy 2 Red Ball before Portal Juice runs out.";
-		QuestText = "Destroy 10 Red Ball before Portal Juice runs out.";
-		QuestText = "Destroy 10 Red Ball before Portal Juice runs out.";
-		QuestText = "Destroy 10 Red Ball before Portal Juice runs out.";
-	}
+        int Xgroup = 1; // Random.Range(0, 3);
+		int XAmmount = Random.Range(4, PlayerLevel + 10);
+
+		if (Xgroup == 0) // Pass Loops	
+		{
+			TaskIndex = Xgroup;
+            TaskAmmount = XAmmount;
+			PlayerPrefs.SetInt("TaskAm", XAmmount);
+			PlayerPrefs.SetInt("TaskIn", Xgroup);
+
+        }
+        else if( Xgroup == 1) // Collect Coins while passing loops
+		{
+            TaskIndex = Xgroup;
+            TaskAmmount = XAmmount;
+            PlayerPrefs.SetInt("TaskAm", XAmmount);
+            PlayerPrefs.SetInt("TaskIn", Xgroup);
+        }
+        else if( Xgroup == 2) // Destroy Balls while passing throug loops
+		{
+            TaskIndex = Xgroup;
+            TaskAmmount = XAmmount;
+            PlayerPrefs.SetInt("TaskAm", XAmmount);
+            PlayerPrefs.SetInt("TaskIn", Xgroup);
+        }
+        else if (Xgroup == 3) // Destroy Enemies While passing loops
+		{
+            TaskIndex = Xgroup;
+            TaskAmmount = XAmmount;
+            PlayerPrefs.SetInt("TaskAm", XAmmount);
+            PlayerPrefs.SetInt("TaskIn", Xgroup);
+        }
+        QuestComplete = false;
+    }
 
 	private void Camswitcher(int Index)
 	{

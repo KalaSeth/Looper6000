@@ -26,7 +26,8 @@ public class Coin : MonoBehaviour
 		CoinAnim.SetTrigger("Dead");
 		gameObject.GetComponent<BoxCollider>().enabled = false;
 		GameManager.instance.Coins += 1f;
-		Object.Destroy(gameObject, 1f);
+		GameManager.instance.Qcoins++;
+		Destroy(gameObject, 1f);
 	}
 
 	private void OnCollisionEnter(Collision collision)
@@ -41,6 +42,7 @@ public class Coin : MonoBehaviour
 		}
 		if (collision.gameObject.tag == "Player")
 		{
+			GameManager.instance.IsDead = true;
 			//DestroyCoin();
 		}
 	}
