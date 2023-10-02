@@ -30,6 +30,7 @@ public class Bullet1_2 : MonoBehaviour
 				GameManager.instance.Qkill++;
 			}
 			GameManager.instance.Kills++;
+			PlayerPrefs.SetInt("Kills", GameManager.instance.Kills);
 			GameManager.instance.KillUP.SetTrigger("Go");
 		}
 		Destroy(gameObject);

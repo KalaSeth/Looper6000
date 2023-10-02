@@ -4,15 +4,11 @@ using UnityEngine;
 
 public class BallWorld : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public GameObject BallIland;
+    public GameObject CoinIland;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public Transform Balls;
+    public Transform Coins;
+
+   
 }

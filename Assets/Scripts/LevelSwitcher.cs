@@ -51,4 +51,14 @@ public class LevelSwitcher : MonoBehaviour
 	{
 		Application.OpenURL("https://black-boss.itch.io/looper-6000");
 	}
+
+	public void LoadShop()
+	{
+		SceneManager.LoadScene(2);
+	}
+	
+	public void CloseShop()
+	{
+        SceneManager.UnloadSceneAsync(1);
+    }
 }

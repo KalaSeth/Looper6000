@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
 	public Slider XpSlider;
 	public Animator XPup;
 
+	public Text DeadText;
 	public bool IsDead;
 	public bool IsPaused;
 	public bool ChallengeStart;
@@ -34,6 +35,7 @@ public class GameManager : MonoBehaviour
 	public int Loops;
 	public int BestLoops;
 	public int Kills;
+	int MainKill;
 	public Text KillText;
 	public Animator KillUP;
 	public int Qkill;
@@ -74,7 +76,8 @@ public class GameManager : MonoBehaviour
 	{
 		PlayerLevel = PlayerPrefs.GetInt("Level",1);
 		TaskAmmount = PlayerPrefs.GetInt("TaskAm",4);
-		Kills = PlayerPrefs.GetInt("Kills", 0);
+		MainKill = PlayerPrefs.GetInt("Kills", 0);
+		Kills = 0;
 
         TaskIndex = PlayerPrefs.GetInt("TaskIn", 0);
 		Tutorial1 = PlayerPrefs.GetInt("Tut1", 0);
@@ -108,8 +111,15 @@ public class GameManager : MonoBehaviour
         PlayerLevel = PlayerPrefs.GetInt("Level", 1);
         TaskAmmount = PlayerPrefs.GetInt("TaskAm", 4);
         TaskIndex = PlayerPrefs.GetInt("TaskIn", 0);
+        MainKill = PlayerPrefs.GetInt("Kills", 0);
 
-		Leveltext.text = PlayerLevel.ToString();
+		if (Kills >= MainKill)
+		{
+			MainKill = Kills;
+			PlayerPrefs.SetInt("Kills", MainKill);
+		}
+
+        Leveltext.text = PlayerLevel.ToString();
         Health.value = CounterCh;
 		CoinText.text = "x" + Coins.ToString();
 		KillText.text = "x" + Kills.ToString();
@@ -265,7 +275,7 @@ public class GameManager : MonoBehaviour
 
 	public void RandomQuestGen()
 	{
-		int Xgroup = 2;// Random.Range(0, 2);
+		int Xgroup = Random.Range(0, 2);
 		int XAmmount = Random.Range(4,11);
 
 		if (Xgroup == 0) // Pass Loops	
@@ -278,6 +288,7 @@ public class GameManager : MonoBehaviour
         }
         else if( Xgroup == 1) // Collect Coins while passing loops
 		{
+            XAmmount = Random.Range(1, 10);
             TaskIndex = Xgroup;
             TaskAmmount = XAmmount;
             PlayerPrefs.SetInt("TaskAm", XAmmount);
@@ -285,6 +296,7 @@ public class GameManager : MonoBehaviour
         }
         else if( Xgroup == 2) // Destroy Balls while passing throug loops
 		{
+            XAmmount = Random.Range(1, 10);
             TaskIndex = Xgroup;
             TaskAmmount = XAmmount;
             PlayerPrefs.SetInt("TaskAm", XAmmount);

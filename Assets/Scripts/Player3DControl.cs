@@ -258,10 +258,20 @@ public class Player3DControl : MonoBehaviour
             {
                 DeadSound.Play();
                 DeadSound.Play();
+                GameManager.instance.DeadText.text = "-You Crashed-";
                 GameManager.instance.IsDead = true;
                 PlayerModel.GetComponent<MeshDestroy>().enabled = true;
             }
 			
 		}
 	}
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "Bound")
+		{
+			GameManager.instance.DeadText.text = "-Out of Bounds-";
+			GameManager.instance.IsDead = true;
+		}
+    }
 }
