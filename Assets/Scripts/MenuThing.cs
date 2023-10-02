@@ -14,10 +14,11 @@ public class MenuThing : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        /* God Mode
         PlayerPrefs.SetInt("Coins", 1000);
         PlayerPrefs.SetInt("Kills", 999);
         PlayerPrefs.SetInt("Level", 40);
-
+        */
 
         BestL.text = "Best Loops : " + PlayerPrefs.GetInt("BestLoop",0).ToString();
         Kill.text = "Kills : " + PlayerPrefs.GetInt("Kills",0).ToString();

@@ -93,6 +93,7 @@ public class Player3DControl : MonoBehaviour
 	public AudioSource ShootSound;
 	public AudioSource ShootSound2;
 	public AudioSource Portalsf;
+	public AudioSource bg;
 
 	public Transform[] TPS;
 	public Transform[] Cockpit;
@@ -141,6 +142,7 @@ public class Player3DControl : MonoBehaviour
 		if (!GameManager.instance.IsDead && !GameManager.instance.IsPaused)
 		{
 			ShipSound.volume = 0.5f;
+			bg.volume = 0.375f;
 			if (Input.GetKeyDown(KeyCode.LeftShift))
 			{
 				NewSpeed = forwardSpeed * 3f;
@@ -164,7 +166,8 @@ public class Player3DControl : MonoBehaviour
 		}
 		else if (GameManager.instance.IsDead == true) {
 			gameObject.GetComponent<BoxCollider>().enabled = false;
-				ShipSound.volume = 0f; }
+				ShipSound.volume = 0f; bg.volume = 0.125f;
+        }
 
         Gun1Meter.value = CounterB;
 		Gun2Meter.value = CounterB;

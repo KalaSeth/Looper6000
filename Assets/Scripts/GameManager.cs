@@ -165,7 +165,8 @@ public class GameManager : MonoBehaviour
 		{
 			if (!IsPaused)
 			{
-				IsPaused = true; Player3DControl.instance.ShipSound.Stop();
+				IsPaused = true; Player3DControl.instance.ShipSound.Stop(); Player3DControl.instance.bg.Stop();
+
                 LevelSwitcher.instance.PauseGame();
 				PauseMenu.SetActive(true);
 			}
@@ -221,6 +222,7 @@ public class GameManager : MonoBehaviour
 	public void ResumeBut()
 	{
         Player3DControl.instance.ShipSound.Play();
+        Player3DControl.instance.bg.Play();
         HelpHUD.SetActive(false);
         IsPaused = false;
         LevelSwitcher.instance.ResumeGame();
@@ -241,7 +243,7 @@ public class GameManager : MonoBehaviour
             ChallengeText.text = "Challenge Completed";
             ChallengeBaseAnim.SetTrigger("Go");
             ChallengeAnim.SetTrigger("Go");
-            XP += 30 * Random.Range( PlayerLevel, PlayerLevel * 2);
+            XP += 80 * Random.Range( PlayerLevel, PlayerLevel * 2);
 			XPup.GetComponent<Text>().text = XP.ToString() + "xp+";
 			XPup.SetTrigger("Go");
             PlayerPrefs.SetInt("xp", XP);
