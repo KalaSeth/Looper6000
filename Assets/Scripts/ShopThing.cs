@@ -1,16 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ShopThing : MonoBehaviour
 {
+    public static ShopThing instance;
     public GameObject Scrollthing;
     Vector3 NewPos;
     public int Index;
-
     public int[] BuyIndex;
 
+
     public GameObject Lockedobj;
+
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     // Start is called before the first frame update
     void Start()

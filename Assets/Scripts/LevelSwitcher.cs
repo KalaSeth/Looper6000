@@ -54,11 +54,12 @@ public class LevelSwitcher : MonoBehaviour
 
 	public void LoadShop()
 	{
-		SceneManager.LoadScene(2);
-	}
+        SceneManager.LoadScene(2); 
+		ResumeGame();
+    }
 	
 	public void CloseShop()
 	{
-        SceneManager.UnloadSceneAsync(1);
+		Menugame();
     }
 }

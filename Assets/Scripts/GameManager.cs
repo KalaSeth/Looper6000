@@ -100,7 +100,7 @@ public class GameManager : MonoBehaviour
 		Health.maxValue = 11;
 		Health.value = CounterCh; //Player3DControl.instance.BodyHealth;
 		PauseMenu.SetActive(false);
-
+		
 		QuestChecker();
 
 		BestLoops = PlayerPrefs.GetInt("BestLoop", 0);
@@ -112,8 +112,9 @@ public class GameManager : MonoBehaviour
         TaskAmmount = PlayerPrefs.GetInt("TaskAm", 4);
         TaskIndex = PlayerPrefs.GetInt("TaskIn", 0);
         MainKill = PlayerPrefs.GetInt("Kills", 0);
+		Coins = PlayerPrefs.GetInt("Coins", 0);
 
-		if (Kills >= MainKill)
+        if (Kills >= MainKill)
 		{
 			MainKill = Kills;
 			PlayerPrefs.SetInt("Kills", MainKill);
