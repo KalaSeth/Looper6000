@@ -25,7 +25,7 @@ public class ClickBuyer : MonoBehaviour
         Cursor.visible = true;
     }
 
-    private void Update()
+    public void Update()
     {
         coin = PlayerPrefs.GetInt("Coins", 0);
         kill = PlayerPrefs.GetInt("Kills",0);

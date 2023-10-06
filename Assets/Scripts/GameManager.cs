@@ -76,6 +76,7 @@ public class GameManager : MonoBehaviour
 
 	public void Start()
 	{
+	
 		PlayerLevel = PlayerPrefs.GetInt("Level",1);
 		TaskAmmount = PlayerPrefs.GetInt("TaskAm",4);
 		MainKill = PlayerPrefs.GetInt("Kills", 0);
@@ -241,16 +242,23 @@ public class GameManager : MonoBehaviour
 		{
 			ChallengeText.color = new Color32(112, 236, 143, 255);
             ChallengeText.text = "Challenge Completed";
+			CounterCh = 11f;
+			int Ncc = Random.Range(20, 100);
+			Coins += Ncc;
+			PlayerPrefs.SetInt("Coins", (int)Coins);
+			Coinplus.text = "Coin +" + Ncc.ToString();
+            Coinup.SetTrigger("Go");
             ChallengeBaseAnim.SetTrigger("Go");
             ChallengeAnim.SetTrigger("Go");
-            XP += 80 * Random.Range( PlayerLevel, PlayerLevel * 2);
+            XP += 100 * Random.Range( PlayerLevel, PlayerLevel * 2);
 			XPup.GetComponent<Text>().text = XP.ToString() + "xp+";
 			XPup.SetTrigger("Go");
             PlayerPrefs.SetInt("xp", XP);
 			Debug.Log(XP);
 
 			RandomQuestGen();
-		}
+
+        }
 		if (TaskIndex == 0) { QuestText = "Pass throug " + TaskAmmount.ToString() + " Portal before juice runs out!";
 		   if (Qloop >= TaskAmmount)
 			{
@@ -281,11 +289,10 @@ public class GameManager : MonoBehaviour
 
 	}
 
-
 	public void RandomQuestGen()
 	{
 		int Xgroup = Random.Range(0, 2);
-		int XAmmount = Random.Range(4,11);
+		int XAmmount = Random.Range(PlayerLevel,PlayerLevel+4);
 
 		if (Xgroup == 0) // Pass Loops	
 		{
@@ -297,7 +304,6 @@ public class GameManager : MonoBehaviour
         }
         else if( Xgroup == 1) // Collect Coins while passing loops
 		{
-            XAmmount = Random.Range(1, 10);
             TaskIndex = Xgroup;
             TaskAmmount = XAmmount;
             PlayerPrefs.SetInt("TaskAm", XAmmount);
@@ -305,7 +311,6 @@ public class GameManager : MonoBehaviour
         }
         else if( Xgroup == 2) // Destroy Balls while passing throug loops
 		{
-            XAmmount = Random.Range(1, 10);
             TaskIndex = Xgroup;
             TaskAmmount = XAmmount;
             PlayerPrefs.SetInt("TaskAm", XAmmount);

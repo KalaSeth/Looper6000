@@ -29,6 +29,7 @@ public class Coin : MonoBehaviour
 		PlayerPrefs.SetInt("Coins", (int)GameManager.instance.Coins);
 
         GameManager.instance.Qcoins++;
+		GameManager.instance.Coinplus.text = "Coin +1";
         GameManager.instance.Coinup.SetTrigger("Go");
         Destroy(gameObject, 1f);
 	}

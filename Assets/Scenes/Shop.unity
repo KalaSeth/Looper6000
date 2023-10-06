@@ -2991,8 +2991,8 @@ MonoBehaviour:
   State: 0
   BuyText: {fileID: 1541257243}
   PLevel: {fileID: 1435139283}
-  pKill: {fileID: 2040060695}
-  pCoin: {fileID: 1948138094}
+  pKill: {fileID: 1948138094}
+  pCoin: {fileID: 2040060695}
   Equippedth: {fileID: 1326659998}
   Price: {fileID: 1861257720}
 --- !u!1 &1948138092
