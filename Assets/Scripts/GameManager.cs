@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
 	public Animator ChallengeBaseAnim;
 	public AudioSource OutOfTimeAudio;
 
+	public Text Coinplus;
 	public Text LoopText;
 	public Text BestLoopText;
 	public int Loops;
@@ -259,7 +260,7 @@ public class GameManager : MonoBehaviour
 			RandomQuestGen();
 
         }
-		if (TaskIndex == 0) { QuestText = "Pass throug " + TaskAmmount.ToString() + " Portal before juice runs out!";
+		if (TaskIndex == 0) { QuestText = "Pass through " + TaskAmmount.ToString() + " Portal before juice runs out!";
 		   if (Qloop >= TaskAmmount)
 			{
 				Qloop = 0;

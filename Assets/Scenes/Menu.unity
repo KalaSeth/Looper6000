@@ -493,7 +493,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "Fly around in open level. \nTo Start a Challenge pass throug a loop.\nBewere
+  m_Text: "Fly around in open level. \nTo Start a Challenge pass through a loop.\nBewere
     that each loop provides enough juice for 10 sec,\nGain xp by completing the different
     challenges.\nUnlock New Player Moder from Hanger.\n"
 --- !u!222 &121192577

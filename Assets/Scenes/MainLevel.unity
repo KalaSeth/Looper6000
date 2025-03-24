@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: 43b725e4471e72d4681fe5f8a9275e35, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: ceb0a3ed2cb53a94fa21843cc958c52b, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 355196361}
-  m_IndirectSpecularColor: {r: 0.4048822, g: 0.5002645, b: 0.545042, a: 1}
+  m_IndirectSpecularColor: {r: 0.3907327, g: 0.46639794, b: 0.553925, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -93578,7 +93578,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "Fly around in open level. \nTo Start a Challenge pass throug a loop.\nBewere
+  m_Text: "Fly around in open level. \nTo Start a Challenge pass through a loop.\nBewere
     that each loop provides enough juice for 10 sec,\nGain xp by completing the different
     challenges.\nUnlock New Player Moder from Hanger.\n"
 --- !u!222 &1522956073
